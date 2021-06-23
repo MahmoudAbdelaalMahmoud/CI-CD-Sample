@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "121391721731",
+    "project_id": "cicd-sample-d57c4",
+    "storage_bucket": "cicd-sample-d57c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121391721731:android:3444b4219e758389dc8d36",
+        "android_client_info": {
+          "package_name": "com.tridev.cicd_sample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121391721731-v7dd4ke7ajl0pksf99p7vapk2kkoli8f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZFIQZepSM5hMiAkx4WGYkLT3xQhm4E_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121391721731-v7dd4ke7ajl0pksf99p7vapk2kkoli8f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
