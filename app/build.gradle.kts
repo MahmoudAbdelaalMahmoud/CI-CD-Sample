@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("com.google.gms.google-services")
+    id("com.google.firebase.appdistribution")
 }
 
 android {
@@ -23,6 +24,14 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro")
+        }
+        getByName("debug") {
+            firebaseAppDistribution {
+                artifactType = "APK"
+                releaseNotes= "test Deploy using circle CI"
+                group = "group1"
+                serviceCredentialsFile = "./service_credentials_file.json"
+            }
         }
     }
     compileOptions {
