@@ -30,7 +30,7 @@ android {
                 artifactType = "APK"
                 releaseNotes= "test Deploy using circle CI"
                 group = "group1"
-                serviceCredentialsFile = "./service_credentials_file.json"
+                serviceCredentialsFile = "./service_credential_file.json"
             }
         }
     }
