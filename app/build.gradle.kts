@@ -29,7 +29,7 @@ android {
             firebaseAppDistribution {
                 artifactType = "APK"
                 releaseNotes= "test Deploy using circle CI"
-                group = "group1"
+                testers = "group1"
                 serviceCredentialsFile = "./service_credential_file.json"
             }
         }
