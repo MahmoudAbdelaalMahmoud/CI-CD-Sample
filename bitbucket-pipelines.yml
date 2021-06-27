@@ -1,0 +1,48 @@
+image: androidsdk/android-30
+
+pipelines:
+    default:
+      - step:
+          name: Build a version
+          caches:
+            - gradle
+            - android-sdk
+            - pip
+          script:
+            # Give write access
+            - chmod a+x ./gradlew
+
+            # Clean the project
+            - ./gradlew clean
+
+            # Build apk
+            - ./gradlew assembleDebug # crashlyticsUploadDistributionExternalRelease crashlyticsUploadDistributionInternalRelease -Dorg.gradle.parallel=false
+          artifacts:
+            - app/build/outputs/apk/debug/*.apk
+      - step:
+          name: Upload to Bitbucket Downloads
+          script:
+            - pipe: atlassian/bitbucket-upload-file:0.3.2
+              variables:
+                BITBUCKET_USERNAME: $BITBUCKET_USERNAME
+                BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD #CYryCHzrDmzXzF3W3bv8
+                FILENAME: './app/build/outputs/apk/debug/app-debug.apk'
+                ACCOUNT: ${BITBUCKET_REPO_OWNER}
+                REPOSITORY: ${BITBUCKET_REPO_SLUG}
+
+
+      - step:
+          name: Upload to App Distribution
+          image: node:10.13
+          caches:
+            - node
+          script:
+            - npm install
+            - npm install -g firebase-tools
+            - npm install
+            - firebase appdistribution:distribute ./app/build/outputs/apk/debug/app-debug.apk  --app ${APP_ID}
+
+
+definitions:
+    caches:
+      android-sdk: android-sdk
