@@ -11,6 +11,10 @@ jobs:
       # add gradle wrapper to work using "gradlew" commands
       - name: gradle wrapper
         run: gradle wrapper --gradle-version 6.8.2 --distribution-type all
+      - name: Bump version
+        uses: chkfung/android-version-actions@v1.1
+        with:
+          gradlePath: app/build.gradle.kts # or app/build.gradle.kts
       # Create Debug APK
       - name: Make gradlew executable
         run: chmod +x ./gradlew
