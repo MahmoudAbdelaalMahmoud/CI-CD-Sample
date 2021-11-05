@@ -15,7 +15,8 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build Android project
         run: ./gradlew increaseVersionCode
-           ./gradlew assembleDebug
+      - name: Build Android project
+        run: ./gradlew assembleDebug
       # Deploy apk to firebase app distribution
       - name: Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@d6e3b20d53da54e1ffd2082a8132e120b5bd1bb2
