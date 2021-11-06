@@ -33,11 +33,12 @@ fun getProps(): Properties? {
 }
 
 fun getVersionCode(): Int {
-    return getProps()?.run {
-        this["majorVersion"].toString().toInt() * 1000
-        +this["minorVersion"].toString().toInt() * 100
-        +this["patchVersion"].toString().toInt()
-    } ?: 0
+    getProps()?.run {
+        return@getVersionCode this["majorVersion"].toString()
+            .toInt() * 1000 + this["minorVersion"].toString()
+            .toInt() * 100 + this["patchVersion"].toString().toInt()
+    }
+    return 1
 }
 
 fun getVersionName(): String {
@@ -48,8 +49,6 @@ fun getVersionName(): String {
 }
 
 
-val VERSION_NAME: String by project
-val VERSION_CODE: String by project
 android {
     compileSdk = 30
     buildToolsVersion = "30.0.3"
