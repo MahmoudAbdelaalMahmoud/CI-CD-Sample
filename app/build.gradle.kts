@@ -20,6 +20,27 @@ fun versionCode(): Int {
 
 }
 
+fun getVersionCode(): Int {
+    val majorVersion: String by project
+    val minorVersion: String by project
+    val patchVersion: String by project
+
+    return majorVersion.toInt() * 10000 + minorVersion.toInt() * 100 + patchVersion.toInt()
+}
+
+fun getVersionName(): String {
+    val majorVersion: String by project
+    val minorVersion: String by project
+    val patchVersion: String by project
+    val buildNumber: String? by project
+    if (buildNumber != null) {
+        return "${majorVersion}.${minorVersion}.${patchVersion}.${buildNumber}"
+    }
+
+    return "${majorVersion}.${minorVersion}.${patchVersion}"
+}
+
+
 val VERSION_NAME: String by project
 val VERSION_CODE: String by project
 android {
@@ -29,8 +50,8 @@ android {
         applicationId = "com.tridev.cicd_sample"
         minSdk = 21
         targetSdk = 30
-        versionCode = VERSION_CODE.toInt()
-        versionName = VERSION_NAME
+        versionCode = getVersionCode()
+        versionName = getVersionName()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

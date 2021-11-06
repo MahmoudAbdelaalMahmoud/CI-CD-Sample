@@ -13,8 +13,11 @@ jobs:
         run: gradle wrapper --gradle-version 6.8.2 --distribution-type all
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-      - name: Build Android project
-        run: ./gradlew increaseVersionCode
+      - name: Bump version
+        id: bump_version
+        uses: oflynned/Android-Semantic-Release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Android project
         run: ./gradlew assembleDebug
       # Deploy apk to firebase app distribution
