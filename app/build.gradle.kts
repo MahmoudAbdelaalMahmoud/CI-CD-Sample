@@ -20,24 +20,31 @@ fun versionCode(): Int {
 
 }
 
-fun getVersionCode(): Int {
-    val majorVersion: String by project
-    val minorVersion: String by project
-    val patchVersion: String by project
 
-    return majorVersion.toInt() * 10000 + minorVersion.toInt() * 100 + patchVersion.toInt()
+fun getProps(): Properties? {
+    val fileProp = file("../version.properties")
+    if (fileProp.canRead()) {
+        val prop = Properties()
+        prop.load(fileProp.inputStream())
+        return prop
+    }
+    return null
+
+}
+
+fun getVersionCode(): Int {
+    return getProps()?.run {
+        this["majorVersion"].toString().toInt() * 1000
+        +this["minorVersion"].toString().toInt() * 100
+        +this["patchVersion"].toString().toInt()
+    } ?: 0
 }
 
 fun getVersionName(): String {
-    val majorVersion: String by project
-    val minorVersion: String by project
-    val patchVersion: String by project
-    val buildNumber: String? by project
-    if (buildNumber != null) {
-        return "${majorVersion}.${minorVersion}.${patchVersion}.${buildNumber}"
-    }
 
-    return "${majorVersion}.${minorVersion}.${patchVersion}"
+    return getProps()?.run {
+        " ${this["majorVersion"].toString()}.${this["minorVersion"].toString()}.${this["patchVersion"].toString()}"
+    } ?: "1.0.0"
 }
 
 
@@ -89,6 +96,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 }
-tasks.register("increaseVersionCode") {
-    versionCode()
-}
+//tasks.register("increaseVersionCode") {
+//    versionCode()
+//}
